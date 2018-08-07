@@ -1,0 +1,18 @@
+{
+  "name": "urlshorten",
+  "version": "1.0.0",
+  "description": "urlshorten as homework",
+  "main": "app/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pathompong Pechkongtong",
+  "license": "BSD",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-subdomain": "^1.0.5",
+    "mongoose": "^5.2.7",
+    "vue": "^2.5.17"
+  }
+}
