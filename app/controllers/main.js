@@ -1,12 +1,20 @@
-const path = require('path');
-const UrlDB = require('../models/urlDB');
+import path from 'path';
+import config from '../config';
+import UrlDB from '../models/urlDB';
 
-exports.root = function (request, response) {
-  response.sendFile(path.join(__dirname + '../views/index.html'))
+exports.root = (request, response) => {
+  const data = {
+    url: config.url
+  }
+  request.vueOptions.head.title = 'URL Shortener';
+  request.vueOptions.head.scripts.push({
+    src: 'https://unpkg.com/axios/dist/axios.min.js'
+  })
+  response.renderVue('main/index.vue', data, request.vueOptions);
 };
 
-exports.getUrl = function (request, response) {
-  UrlDB.findOne(request.params.string, function (error, shortenurl) {
+exports.getUrl = (request, response) => {
+  UrlDB.findOne(request.params.inputUrl, function (error, shortenurl) {
     if (error) return next (error);
     response.send(shortenurl);
   })
