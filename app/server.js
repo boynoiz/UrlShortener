@@ -1,6 +1,7 @@
 import path from 'path';
 import express from 'express';
 import expressVue from 'express-vue';
+import errorHandler from 'errorhandler';
 import subdomain from 'express-subdomain';
 import morgan from 'morgan';
 import mainRouter from './routes/main';
@@ -12,6 +13,11 @@ const app = express();
 
 // Logging
 app.use(morgan('combined'));
+
+// Handle all error in development mode
+if(config.env === 'development') {
+  app.use(errorHandler())
+}
 
 // Use express-vue to render vue template and components
 const vueOptions = {
