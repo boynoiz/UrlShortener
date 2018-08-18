@@ -4,6 +4,7 @@ import expressVue from 'express-vue';
 import errorHandler from 'errorhandler';
 import subdomain from 'express-subdomain';
 import morgan from 'morgan';
+import bodyParser from 'body-parser';
 import mainRouter from './routes/main';
 import apiRouter from './routes/api';
 import config from './config';
@@ -28,6 +29,9 @@ const expressVueMiddleware = expressVue.init(vueOptions);
 app.use(expressVueMiddleware);
 
 // Setup mongoose connection
+
+// Use bodyParser with urlencoded as middleware to handle data from the form
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Routing
 app.use('/', mainRouter);
