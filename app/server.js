@@ -2,12 +2,16 @@ import path from 'path';
 import express from 'express';
 import expressVue from 'express-vue';
 import subdomain from 'express-subdomain';
+import morgan from 'morgan';
 import mainRouter from './routes/main';
 import apiRouter from './routes/api';
 import config from './config';
 
 // Start the engine
 const app = express();
+
+// Logging
+app.use(morgan('combined'));
 
 // Use express-vue to render vue template and components
 const vueOptions = {
