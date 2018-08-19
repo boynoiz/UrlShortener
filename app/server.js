@@ -36,6 +36,11 @@ mongoose.Promise = global.Promise;
 // Set default connection
 const db = mongoose.connection;
 
+// Handle mongoDB connection error
+if(config.env === 'development') {
+  db.on('error', console.error.bind(console, 'MongoDB connection error: '));
+}
+
 // Use bodyParser with urlencoded as middleware to handle data from the form
 app.use(bodyParser.urlencoded({extended: true}));
 
