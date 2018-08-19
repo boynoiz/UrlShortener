@@ -30,6 +30,7 @@ app.use(expressVueMiddleware);
 
 // Setup mongoose connection
 const mongoDB = 'mongodb://' + config.db_host + ':27017/shurl';
+mongoose.connect(mongoDB,{ useNewUrlParser: true});
 mongoose.Promise = global.Promise;
 
 // Set default connection
