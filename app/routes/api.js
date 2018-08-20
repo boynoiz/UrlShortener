@@ -1,4 +1,5 @@
 import express from 'express';
+import APIController from '../controllers/api';
 
 const apiRouter = express.Router();
 
@@ -10,12 +11,6 @@ apiRouter.get('/hello', function(request, response) {
 //// API Backend
 // Get parameter from form action and then generate random string
 // store original url and random string in database and response shorten link to client
-apiRouter.post('/create', (request, response) => {
-  const data = {
-    outputUrl: request.body.inputUrl,
-    message: "OK"
-  }
-  response.json(data);
-});
+apiRouter.post('/create', APIController.create);
 
 module.exports = apiRouter;

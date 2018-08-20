@@ -43,6 +43,7 @@ export default {
             this.outputUrl = data.outputUrl;
 
             console.log("Message: " + data.message);
+            console.log("InputUrl: " + data.inputUrl);
             console.log("OutputUrl: " + data.outputUrl);
           } else {
             this.responseMessage = 'Error : ' + data.message;
