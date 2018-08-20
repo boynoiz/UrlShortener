@@ -5,6 +5,8 @@ import errorHandler from 'errorhandler';
 import subdomain from 'express-subdomain';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+
 import mainRouter from './routes/main';
 import apiRouter from './routes/api';
 import config from './config';
