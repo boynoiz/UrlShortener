@@ -44,6 +44,7 @@ if(config.env === 'development') {
 }
 
 // Use bodyParser with urlencoded as middleware to handle data from the form
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Routing

@@ -32,17 +32,20 @@ export default {
   methods: {
     // Send inputUrl to being shorten
     submitURL: function() {
-      const data = {
-        inputUrl: this.inputUrl
-      }
-      axios.post('https://api.' + this.url + '/create', data)
+      axios.post('https://api.' + this.url + '/create', {inputUrl: this.inputUrl})
         .then(response => {
-          const data = response.data;
-          if (data.message == "OK") {
+          //TODO
+          //Response message dialog with Sweet-alert2
+          if (response.data.message == "OK" && response.status == '200') {
+            const data = response.data;
+
+            this.responseMessage = data.message;
+            this.outputUrl = data.outputUrl;
+
             console.log("Message: " + data.message);
             console.log("OutputUrl: " + data.outputUrl);
           } else {
-            this.responseMessage = JSON.stringify(data.message);
+            this.responseMessage = 'Error : ' + data.message;
           }
         })
         .catch(error => {
