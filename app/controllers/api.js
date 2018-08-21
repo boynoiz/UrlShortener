@@ -1,6 +1,11 @@
+import mongoose from 'mongoose';
 import randomWords from 'random-words';
+import UrlModel from '../models/urlModel';
 
 exports.create = (request, response) => {
+  //TODO
+  //Create validator function to validate input url
+
   const words = randomWords({
     exactly: 1,
     wordsPerString:2,
@@ -10,11 +15,17 @@ exports.create = (request, response) => {
     }
   });
 
-  const data = {
-    message: "OK",
-    inputUrl: request.body.inputUrl,
-    outputUrl: words,
-  }
+  const addNewUrl = new UrlModel({
+    originalUrl: request.body.inputUrl,
+    shortenUrl: words
+  });
 
-  response.json(data);
+  addNewUrl.save(function (error) {
+    const data = {
+      message: (!error) ? "OK" : "ERROR",
+      inputUrl: request.body.inputUrl,
+      outputUrl: words,
+    }
+    return response.json(data);
+  })
 }
