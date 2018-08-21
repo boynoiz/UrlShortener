@@ -1,7 +1,7 @@
-import express from 'express';
+import { Router } from 'express';
 import APIController from '../controllers/api';
 
-const apiRouter = express.Router();
+const apiRouter = Router();
 
 // Testing route
 apiRouter.get('/hello', function(request, response) {

@@ -1,7 +1,7 @@
-import express from 'express';
+import { Router } from 'express';
 import mainController from '../controllers/main';
 
-const mainRouter = express.Router();
+const mainRouter = Router();
 
 
 
