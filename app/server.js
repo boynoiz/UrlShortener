@@ -9,7 +9,7 @@ import mongoose from 'mongoose';
 
 import mainRouter from './routes/main';
 import apiRouter from './routes/api';
-import config from './config';
+import config from './configs/config';
 
 // Start the engine
 const app = express();

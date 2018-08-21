@@ -1,4 +1,4 @@
-class Config {
+class Bootstrap {
   constructor() {
     this.env = process.env.NODE_ENV || "development";
     this.url = process.env.APP_URL || "localhost";
@@ -6,4 +6,4 @@ class Config {
     this.db_host = process.env.APP_DB_HOST || "localhost";
   }
 }
-module.exports = Config;
+module.exports = Bootstrap;
