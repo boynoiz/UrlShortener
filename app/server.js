@@ -32,16 +32,16 @@ app.use(expressVueMiddleware);
 
 // Setup mongoose connection
 const mongoDB = 'mongodb://' + config.db_host + ':27017/shurl';
-mongoose.connect(mongoDB,{ useNewUrlParser: true});
+mongoose.connect(mongoDB,{ useNewUrlParser: true}, function(error, response) {
+  if (error) {
+    console.log ('ERROR connecting to: ' + config.db_host + '. ' + error);
+    } else {
+    console.log ('Succeeded connected to: ' + config.db_host);
+    }
+});
+
+// Assign mongoose to Promise that we able to play around with async/await
 mongoose.Promise = global.Promise;
-
-// Set default connection
-const db = mongoose.connection;
-
-// Handle mongoDB connection error
-if(config.env === 'development') {
-  db.on('error', console.error.bind(console, 'MongoDB connection error: '));
-}
 
 // Use bodyParser with urlencoded as middleware to handle data from the form
 app.use(bodyParser.json());
