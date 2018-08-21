@@ -1,6 +1,10 @@
 import path from 'path';
 import config from '../configs/config';
+import UrlModel from '../models/urlModel';
 
+
+//First page
+//Response with vuejs
 exports.root = (request, response) => {
   const data = {
     url: config.url
@@ -12,9 +16,20 @@ exports.root = (request, response) => {
   response.renderVue('main/index.vue', data, request.vueOptions);
 };
 
+//Find string from db and redirect original url
 exports.getUrl = (request, response) => {
-  UrlDB.findOne(request.params.inputUrl, function (error, shortenurl) {
-    if (error) return next (error);
-    response.send(shortenurl);
+  const requestString = request.params.string;
+  UrlModel.findOne({shortenUrl: requestString})
+  .then((urlData) => {
+    if (urlData) {
+      response.status(301).redirect(urlData.originalUrl);
+    } else {
+      //TODO
+      //Response to error page if no data exist
+      console.log("No data exist")
+    }
   })
+  .catch((error) => {
+    console.log("Errors: " + error);
+  });
 };
