@@ -1,6 +1,5 @@
 import path from 'path';
-import config from '../config';
-import UrlDB from '../models/urlDB';
+import config from '../configs/config';
 
 exports.root = (request, response) => {
   const data = {
