@@ -2,31 +2,56 @@
   "name": "urlshorten",
   "version": "1.0.0",
   "description": "urlshorten as homework",
-  "main": "app/server.js",
+  "main": "dist",
   "scripts": {
-    "dev": "pm2 start processes.json",
-    "start": "pm2 start processes.json --env production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-client:dev": "node_modules/.bin/cross-env NODE_ENV=development node_modules/.bin/webpack",
+    "watch-client:dev": "node_modules/.bin/cross-env NODE_ENV=development node_modules/.bin/webpack --watch --progress",
+    "watch-server:dev": "pm2 start processes.json --only shurl-dev-runner --env development",
+    "build-server:prod": "node_modules/.bin/cross-env NODE_ENV=production node_modules/.bin/babel src -s -D -d dist",
+    "build-client:prod": "node_modules/.bin/cross-env NODE_ENV=production node_modules/.bin/webpack",
+    "start-server:dev": "pm2 start processes.json --only shurl-build-runner --env development",
+    "start-server:prod": "pm2 start processes.json --only shurl-build-runner --env production",
+    "start": "npm run build-server:prod && npm run build-client:prod && npm run start-server:prod",
+    "test": "node_modules/.bin/eslint src"
   },
   "author": "Pathompong Pechkongtong",
-  "license": "BSD",
+  "license": "UNLICENSED",
   "dependencies": {
-    "babel-cli": "^6.9.0",
-    "babel-core": "^6.9.0",
-    "babel-preset-env": "^1.7.0",
+    "@babel/runtime": "^7.0.0-rc.2",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "errorhandler": "^1.5.0",
     "express": "^4.16.3",
     "express-subdomain": "^1.0.5",
-    "express-vue": "^5.6.6",
-    "mongoose": "^5.2.8",
+    "mongoose": "^5.2.9",
     "morgan": "^1.9.0",
-    "random-words": "^1.1.0",
-    "vue": "^2.5.17"
+    "random-words": "^1.1.0"
   },
   "devDependencies": {
-    "eslint": "^5.3.0"
+    "@babel/cli": "^7.0.0-rc.2",
+    "@babel/core": "^7.0.0-rc.2",
+    "@babel/node": "^7.0.0-rc.2",
+    "@babel/plugin-transform-runtime": "^7.0.0-rc.2",
+    "@babel/preset-env": "^7.0.0-rc.2",
+    "axios": "^0.18.0",
+    "babel-loader": "^8.0.0-beta.6",
+    "bootstrap-vue": "^2.0.0-rc.11",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.0",
+    "dotenv-webpack": "^1.5.7",
+    "eslint": "^5.4.0",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.22.1",
+    "sweetalert2": "^7.26.11",
+    "vee-validate": "^2.1.0-beta.8",
+    "vue": "^2.5.17",
+    "vue-axios": "^2.1.3",
+    "vue-clipboard2": "^0.2.1",
+    "vue-loader": "^15.4.0",
+    "vue-sweetalert2": "^1.5.2",
+    "vue-template-compiler": "^2.5.17",
+    "webpack": "^4.17.0",
+    "webpack-cli": "^3.1.0"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
@@ -35,6 +60,7 @@
       "sourceType": "module"
     },
     "env": {
+      "browser": true,
       "node": true
     },
     "rules": {
