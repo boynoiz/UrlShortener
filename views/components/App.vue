@@ -27,7 +27,7 @@
               </div>
             </div>
             <b-button
-            class="btn btn-primary"
+            :variant="errors.any() ? 'secondary' : 'success'"
             type="submit"
             :disabled="errors.any()"
             >Submit</b-button>
@@ -49,30 +49,36 @@ import VeeValidate from "vee-validate";
 import { Validator } from 'vee-validate';
 import axios from "axios";
 import VueSweetalert2 from "vue-sweetalert2";
+import VueClipboard from 'vue-clipboard2'
 
 Vue.use(BootstrapVue);
 Vue.use(VueSweetalert2);
+Vue.use(VueClipboard)
 
-const validatorOptions = {
-  dictionary: {
-    en: {
+Vue.use(VeeValidate);
+
+Validator.localize({
+  en: {
       attributes: {
         inputUrlForm: 'URL'
       },
-      messages: {
-        inputUrlForm: 'URL format must contain http://www. or https://www.'
+      custom: {
+        inputUrlForm: {
+          required: "Please enter url that you want to shorten",
+          regex: 'Hey! URL format must contain http:// or https://www.'
+        }
       }
-    }
   }
-}
-Vue.use(VeeValidate, validatorOptions);
+});
+
 
 export default {
   data: () => ({
     message: "",
     inputUrl: "",
     outputUrl: "",
-    details: ""
+    details: "",
+    status: ""
   }),
   methods: {
     // Send inputUrl to being shorten
@@ -82,37 +88,54 @@ export default {
           "https://api." + process.env.APP_URL + "/create",
           { inputUrl: this.inputUrl }
         );
-        const data = await promise.data;
-        return this.alert(data);
-      } catch (error) {
+
+        this.message = promise.data.message;
+        this.details = promise.data.details;
+        this.inputUrl = promise.data.inputUrl;
+        this.outputUrl = "https://" + process.env.APP_URL + "/" + promise.data.outputUrl;
+        this.status = promise.status;
+
+        return this.alert();
+      }
+      catch (error)
+      {
         console.log("Calling data from api has been an error: " + error);
         return [];
       }
     },
 
     //Response message dialog with Sweet-alert2
-    async alert(response) {
+    async alert() {
       try {
-        if (response.data.message == "OK" && response.status === 200) {
+        if (this.message == "OK" && this.status === 200) {
           this.$swal({
-            type: "success",
-            title: "Your url already shorten as: ",
-            text:
-              "https://" + process.env.APP_URL + "/" + response.data.outputUrl,
-            showCloseButton: true
+            type: 'success',
+            title: this.details,
+            text: this.outputUrl,
+            showCloseButton: true,
+            confirmButtonText: 'Copy url to clipboard'
+          }).then((result) =>{
+            if (result.value) {
+              this.$copyText(this.outputUrl)
+              this.$swal(
+                'Done!',
+                'Your shorten url already in clipboard',
+                'success'
+              )
+            }
           });
         } else {
           this.$swal({
             type: "error",
             title: "Ops... Something went wrong",
-            text: response.data.details,
-            showCloseButton: true
+            text: this.details,
+            showCloseButton: true,
           });
         }
       } catch (error) {
         console.log("Responding data has been an error: " + error);
       }
-    }
+    },
   }
 };
 </script>
