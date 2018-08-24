@@ -6,7 +6,7 @@ const Dotenv = require('dotenv-webpack');
 const env = process.env.NODE_ENV;
 
 const config = {
-  entry: path.join(__dirname, 'app/views', 'app.js'),
+  entry: path.join(__dirname, 'views', 'app.js'),
   mode: env,
   output: {
     path: __dirname + '/public/assets/js',
@@ -28,7 +28,7 @@ const config = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [path.join(__dirname, 'src/views')],
+        include: [path.join(__dirname, 'views')],
       },
       {
         test: /\.css$/,
@@ -41,7 +41,7 @@ const config = {
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       filename: path.join(__dirname, 'public', 'index.html'),
-      template: path.join(__dirname, 'app/views/template', 'index.html'),
+      template: path.join(__dirname, 'views/template', 'index.html'),
       inject: true,
     }),
   ],

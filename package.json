@@ -2,13 +2,13 @@
   "name": "urlshorten",
   "version": "1.0.0",
   "description": "urlshorten as homework",
-  "main": "app",
+  "main": "dist",
   "scripts": {
     "dev:server": "pm2 start processes.json",
     "dev:client": "node_modules/.bin/cross-env NODE_ENV=development node_modules/.bin/webpack --watch --progress",
     "build": "node_modules/.bin/cross-env NODE_ENV=development node_modules/.bin/webpack",
     "start": "pm2 start processes.json --env production",
-    "test": "node_modules/.bin/eslint app"
+    "test": "node_modules/.bin/eslint src"
   },
   "author": "Pathompong Pechkongtong",
   "license": "UNLICENSED",
