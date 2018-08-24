@@ -1,17 +1,17 @@
 import path from 'path';
 import dotEnv from "dotenv";
-import Bootstrap from "./bootstrap"
+import { Bootstrap } from "./bootstrap"
 
-let envFile = ".env";
+export default function () {
+  let envFile = ".env";
+  const loadEnv = dotEnv.config({
+    path: path.join(__dirname, '../../' + envFile)
+  });
 
-const loadEnv = dotEnv.config({
-  path: path.join(__dirname, '../../' + envFile)
-});
+  if (loadEnv.error) {
+    throw loadEnv.error;
+  }
 
-if (loadEnv.error) {
-  throw loadEnv.error;
+  const config = new Bootstrap();
+  return config;
 }
-
-const config = new Bootstrap();
-
-module.exports = config;
