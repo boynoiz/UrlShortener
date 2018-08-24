@@ -6,7 +6,7 @@ const apiRouter = Router();
 // Testing route
 apiRouter.get('/hello', function(request, response) {
   response.send('Hello, My name is API');
-})
+});
 
 //// API Backend
 // Get parameter from form action and then generate random string

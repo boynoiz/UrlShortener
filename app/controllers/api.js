@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import randomWords from 'random-words';
 import UrlModel from '../models/urlModel';
 
@@ -25,7 +24,9 @@ exports.create = (request, response) => {
       message: (!error) ? "OK" : "ERROR",
       inputUrl: request.body.inputUrl,
       outputUrl: words,
-    }
+      details: null,
+    };
+    console.log("Data saved!");
     return response.json(data);
   })
-}
+};

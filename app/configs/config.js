@@ -10,8 +10,8 @@ const loadEnv = dotEnv.config({
 
 if (loadEnv.error) {
   throw loadEnv.error;
-};
+}
 
-const config = new Bootstrap()
+const config = new Bootstrap();
 
-module.exports = config
+module.exports = config;
