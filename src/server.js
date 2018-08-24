@@ -25,7 +25,7 @@ if(config.env === 'development') {
 }
 
 // Setup mongoose connection
-const mongoDBUri = 'mongodb://' +config.db_user + ':' + config.db_password + '@' + config.db_host + ':27017/' + config.db_name + '?authSource=admin';
+const mongoDBUri = `mongodb://${config.db_user}:${config.db_password}@${config.db_host}:27017/${config.db_name}?authSource=admin`;
 
 mongoose.connect(mongoDBUri, { useNewUrlParser: true }, function(error) {
   if (error) {
@@ -48,7 +48,7 @@ app.use(subdomain('api', apiRouter));
 
 // Listening
 app.listen(config.port, ()=> {
-  console.log('App start listening on port ' + config.port)
+  console.log(`App start listening on port ${config.port}`)
 });
 
 module.exports = app;
