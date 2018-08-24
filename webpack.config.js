@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 const env = process.env.NODE_ENV;
+const sourceMap = env === 'development';
 
 module.exports = [
   /**
@@ -23,6 +24,7 @@ module.exports = [
         chunks: 'all',
       },
     },
+    devtool: sourceMap ? 'cheap-module-eval-source-map' : undefined,
     module: {
       rules: [{
           test: /\.vue$/,
