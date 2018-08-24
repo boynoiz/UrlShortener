@@ -1,7 +1,7 @@
 {
-  "name": "urlshorten",
-  "version": "2.0.0",
-  "description": "urlshorten as homework",
+  "name": "url-shortener",
+  "version": "2.0.1",
+  "description": "Exercise and learning JavaScript with Nodejs, Express and MongoDB in ES6 Style",
   "main": "dist",
   "scripts": {
     "build-client:dev": "node_modules/.bin/cross-env NODE_ENV=development node_modules/.bin/webpack",
