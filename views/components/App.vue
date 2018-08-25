@@ -37,12 +37,13 @@
 </template>
 
 <style lang="css">
-@import "~bootstrap/dist/css/bootstrap.css";
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css');
 @import "~bootstrap-vue/dist/bootstrap-vue.css";
 @import "~sweetalert2/dist/sweetalert2.min.css";
 </style>
 
 <script>
+import "babel-polyfill";
 import Vue from "vue";
 import BootstrapVue from "bootstrap-vue";
 import VeeValidate from "vee-validate";
@@ -70,7 +71,6 @@ Validator.localize({
       }
   }
 });
-
 
 export default {
   data: () => ({
