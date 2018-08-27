@@ -43,8 +43,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Routing
-app.use('/', mainRouter);
 app.use(subdomain('api', apiRouter));
+app.use('/', mainRouter);
 
 // Listening
 app.listen(config.port, ()=> {
