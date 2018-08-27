@@ -15,13 +15,18 @@
     "start": "npm run build-server:prod && npm run build-client:prod && npm run start-server:prod",
     "test": "node_modules/.bin/eslint src"
   },
-  "author": "Pathompong Pechkongtong",
+  "author": {
+    "name" : "Pathompong Pechkongtong",
+    "url" : "boynoiz.com"
+  },
   "license": "MIT",
+  "repository": "boynoiz/UrlShortener",
   "dependencies": {
     "@babel/runtime": "^7.0.0-rc.2",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.3",
+    "bootstrap": "^4.1.3",
     "bootstrap-vue": "^2.0.0-rc.11",
     "dotenv": "^6.0.0",
     "errorhandler": "^1.5.0",
@@ -48,6 +53,7 @@
     "css-loader": "^1.0.0",
     "dotenv-webpack": "^1.5.7",
     "eslint": "^5.4.0",
+    "fast-glob": "^2.2.2",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.2",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
