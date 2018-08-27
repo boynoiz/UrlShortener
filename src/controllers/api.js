@@ -1,14 +1,57 @@
 import randomWords from 'random-words';
-import UrlModel from '../models/urlModel';
+import mongoose from 'mongoose';
+import UrlSchema from '../models/UrlModel';
+
+const UrlModel = mongoose.model('Url', UrlSchema);
 
 /**
+ * Create a new shorten url
+ *
  * TODO:
  * -- []Create validator function to validate input url
  *
  */
-exports.create = (request, response) => {
+export function create(request, response) {
 
-  const words = randomWords({
+  let inputUrl = request.body.inputUrl;
+  let inputWord = request.body.inputWord;
+
+  let addNewUrl = new UrlModel({
+    originalUrl: inputUrl,
+    shortenUrl: inputWord
+  });
+
+  addNewUrl.save((error, url) => {
+    if (error) {
+      let data = {
+        message: "ERROR",
+        details: error,
+        status: 409
+      };
+      response.sendStatus = 409;
+      return response.json(data);
+    }
+
+    let data = {
+      message: "OK",
+      details: url,
+      status: 200
+    };
+    response.sendStatus = 200;
+    return response.json(data);
+  })
+
+}
+
+/**
+ * Generator words string
+ *
+ *
+ */
+
+export function words(request, response) {
+
+  let words = randomWords({
     exactly: 1,
     wordsPerString:2,
     separator: '-',
@@ -17,20 +60,11 @@ exports.create = (request, response) => {
     }
   });
 
-  const addNewUrl = new UrlModel({
-    originalUrl: request.body.inputUrl,
-    shortenUrl: words[0]
-  });
-
-  addNewUrl.save(function (error) {
-    const data = {
-      message: (!error) ? "OK" : "ERROR",
-      details: (!error) ? "Your url already shorten as:" : error,
-      inputUrl: request.body.inputUrl,
-      outputUrl: words[0],
-      status: (!error) ? 200 : 500
-    };
-    console.log("Data saved!");
-    return response.json(data);
-  })
-};
+  let data = {
+    message: "OK",
+    details: words[0],
+    status: 200
+  }
+  response.sendStatus = 200;
+  return response.json(data)
+}
