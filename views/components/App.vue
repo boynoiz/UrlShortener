@@ -31,7 +31,7 @@
             </div>
             <div class="form-group col">
               <b-form-checkbox id="isCustomWordCheckedForm" v-model="formData.isCustomWordChecked">
-                Desire you own?
+                Desire your own?
               </b-form-checkbox>
             </div>
           </div>
@@ -51,12 +51,12 @@
 </style>
 
 <script>
-import "babel-polyfill";
+import "@babel/polyfill";
+import axios from "axios";
 import Vue from "vue";
 import BootstrapVue from "bootstrap-vue";
 import VeeValidate from "vee-validate";
 import { Validator } from "vee-validate";
-import axios from "axios";
 import VueSweetalert2 from "vue-sweetalert2";
 import VueClipboard from "vue-clipboard2";
 
@@ -65,7 +65,6 @@ Vue.use(VueSweetalert2);
 Vue.use(VueClipboard);
 
 Vue.use(VeeValidate);
-
 Validator.localize({
   en: {
     attributes: {
