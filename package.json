@@ -32,7 +32,6 @@
     "errorhandler": "^1.5.0",
     "express": "^4.16.3",
     "express-subdomain": "^1.0.5",
-    "jquery": "^1.12.4",
     "mongoose": "^5.2.10",
     "morgan": "^1.9.0",
     "random-words": "^1.1.0",
