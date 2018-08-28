@@ -1,5 +1,6 @@
 const path = require("path");
-const fg = require('fast-glob');
+const fg = require("fast-glob");
+const webpack = require("webpack");
 const { VueLoaderPlugin } = require("vue-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
@@ -8,24 +9,24 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const PurgecssPlugin = require("purgecss-webpack-plugin");
 
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+
 module.exports = (env, argv) => ({
   entry: path.join(__dirname, "views", "app.js"),
   mode: argv.mode,
   output: {
     path: __dirname + "/public/assets",
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].bundle.js'
+    filename: "[name].[contenthash].bundle.js",
+    chunkFilename: "[name].[contenthash].chunk.js"
   },
   optimization: {
     splitChunks: {
       cacheGroups: {
-        styles: {
-          name: "styles",
-          test: /\.css$/,
-          chunks: "all",
-          minChunks: 1,
-          reuseExistingChunk: true,
-          enforce: true
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "initial",
         }
       }
     },
@@ -85,12 +86,16 @@ module.exports = (env, argv) => ({
     new Dotenv(),
     new VueLoaderPlugin(),
     new PurgecssPlugin({
-      paths: fg.sync([
-        path.join(__dirname, "views/**/*.html"),
-        path.join(__dirname, "views/**/*.vue"),
-        path.join(__dirname, 'node_modules/bootstrap-vue/src/**/*.js'),
-      ]).filter(function (f) { return !/\/$/.test(f) }),
-      whitelist: ['html', 'body']
+      paths: fg
+        .sync([
+          path.join(__dirname, "views/**/*.html"),
+          path.join(__dirname, "views/**/*.vue"),
+          path.join(__dirname, "node_modules/bootstrap-vue/src/**/*.js")
+        ])
+        .filter(function(f) {
+          return !/\/$/.test(f);
+        }),
+      whitelist: ["html", "body"]
     }),
     new MiniCssExtractPlugin({
       filename:
@@ -110,11 +115,14 @@ module.exports = (env, argv) => ({
               removeComments: true,
               collapseWhitespace: true,
               removeAttributeQuotes: true
-              // More options:
-              // https://github.com/kangax/html-minifier#options-quick-reference
             }
           : false
-    })
+    }),
+    // Enable only in development mode
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: "static",
+    //   reportFilename: "backend-report.html"
+    // })
   ],
   watchOptions: {
     aggregateTimeout: 300,
