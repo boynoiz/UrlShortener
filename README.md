@@ -21,7 +21,7 @@ $ npm run start:dev
 
 ### Note
 
- - Since I develop this project inside docker and behind the Nginx reverse proxy so You might to look at here [UrlShortener-Docker](https://github.com/boynoiz/UrlShortener-Docker)
+ - Since I develop this project inside docker and behind the Nginx reverse proxy so you might look at here [UrlShortener-Docker](https://github.com/boynoiz/UrlShortener-Docker)
  - 
 
 License
